@@ -7,13 +7,13 @@ import Link from 'next/link'
 
 const Nav = (): JSX.Element => {
   const activeButtonStyle = 'bg-zinc-400 text-zinc-700'
-  const inactiveButtonStyle = 'bg-zinc-500 text-white'
+  const inactiveButtonStyle = 'bg-zinc-500 text-white hover:bg-zinc-600 hover:font-bold'
 
   const pathname = usePathname()
 
   return (
-    <nav className='flex flex-col items-start pt-5 pl-5 bg-zinc-500 text-white h-full gap-5 w-60'>
-      <h1 className='font-bold text-xl mb-2'>Pet Shop</h1>
+    <nav className='flex flex-col items-start pt-5 pl-5 bg-zinc-500 h-full gap-4 w-60'>
+      <h1 className='font-bold text-xl mb-2 text-white'>Pet Shop</h1>
       <Link href={'/'} className={`flex gap-2 items-center text-lg font-semibold w-full rounded-l-sm px-3 py-1 transition-colors ${pathname === '/' ? activeButtonStyle : inactiveButtonStyle}`}>
         <FaHouseChimneyWindow />Dashboard
       </Link>
