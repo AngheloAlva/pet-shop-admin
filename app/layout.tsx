@@ -1,3 +1,4 @@
+import Nav from '@/components/Nav'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
@@ -18,7 +19,10 @@ export default function RootLayout ({
   return (
     <html lang="en">
       <body className={nunito.className}>
-        {children}
+        <div className='flex h-screen w-screen'>
+          <Nav />
+          {children}
+        </div>
       </body>
     </html>
   )

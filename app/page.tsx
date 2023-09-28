@@ -1,7 +1,5 @@
 export default function Home (): JSX.Element {
   return (
-    <main>
-      <h1>Home</h1>
-    </main>
+    <div className='w-full bg-zinc-800'></div>
   )
 }
