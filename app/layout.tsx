@@ -19,7 +19,7 @@ export default function RootLayout ({
   return (
     <html lang="en">
       <body className={nunito.className}>
-        <div className='flex h-screen w-screen'>
+        <div className='flex min-h-screen w-screen'>
           <Nav />
           {children}
         </div>

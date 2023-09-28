@@ -43,15 +43,17 @@ const deleteProduct = async (id: string): Promise<void> => {
   }
 }
 
-const searchProducts = async (search: string): Promise<void> => {
+const searchProducts = async (search: string): Promise<Product[]> => {
   try {
     const response = await axios.get(
-      `http://localhost:3001/products?term=${search}`
+      `http://localhost:3001/products/search?term=${search}`
     )
     return response.data
   } catch (error) {
     console.error(error)
   }
+
+  return []
 }
 
 export {

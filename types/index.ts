@@ -23,6 +23,7 @@ interface Product {
   options: ProductOption[]
   brand: Brand
   lifeStage: string[]
+  category: Category
 }
 
 interface ProductDescription {
