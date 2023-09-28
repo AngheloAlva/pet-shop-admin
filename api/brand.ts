@@ -15,7 +15,7 @@ const createBrand = async (brand: Brand): Promise<void> => {
 const getBrands = async (limit: number, from: number): Promise<Brand[]> => {
   try {
     const response = await axios.get(
-      `http://localhost:3001/brands${'/?limit=' + limit + '&from=' + from}`
+      `http://localhost:3001/brands${limit > 0 ? `?limit=${limit}` : ''}${from > 0 ? `&from=${from}` : ''}`
     )
     console.log(response.data)
     return response.data

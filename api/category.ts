@@ -14,7 +14,7 @@ const createCategory = async (category: Category): Promise<void> => {
 const getCategories = async (limit: number, from: number): Promise<Category[]> => {
   try {
     const response = await axios.get(
-      `http://localhost:3001/categories${'/?limit=' + limit + '&from=' + from}`
+      `http://localhost:3001/categories${limit > 0 ? `?limit=${limit}` : ''}${from > 0 ? `&from=${from}` : ''}`
     )
     console.log(response.data)
     return response.data
