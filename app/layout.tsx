@@ -2,6 +2,7 @@ import Nav from '@/components/Nav'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
+import { Toaster } from '@/components/ui/toaster'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -22,6 +23,7 @@ export default function RootLayout ({
         <div className='flex min-h-screen w-screen'>
           <Nav />
           {children}
+          <Toaster />
         </div>
       </body>
     </html>
