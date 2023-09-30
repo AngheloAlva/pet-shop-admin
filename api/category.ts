@@ -1,17 +1,18 @@
 import type { Category } from '@/types'
 import axios from 'axios'
 
-const createCategory = async (category: Category): Promise<void> => {
+const createCategory = async (category: Category): Promise<{ msg: string, newCategory: Category }> => {
   try {
     const response = await axios.post('http://localhost:3001/categories', category)
     console.log(response.data)
     return response.data
   } catch (error) {
     console.error(error)
+    throw new Error('Error al crear la categoría')
   }
 }
 
-const getCategories = async (limit: number, from: number): Promise<Category[]> => {
+const getCategories = async (limit: number = 15, from: number = 0): Promise<{ categories: Category[], total: number }> => {
   try {
     const response = await axios.get(
       `http://localhost:3001/categories${limit > 0 ? `?limit=${limit}` : ''}${from > 0 ? `&from=${from}` : ''}`
@@ -20,25 +21,27 @@ const getCategories = async (limit: number, from: number): Promise<Category[]> =
     return response.data
   } catch (error) {
     console.error(error)
-    return []
+    return { categories: [], total: 0 }
   }
 }
 
-const updateCategory = async (category: Category): Promise<void> => {
+const updateCategory = async (category: Category): Promise<{ msg: string, category: Category }> => {
   try {
     const response = await axios.put(`http://localhost:3001/categories/${category._id}`, category)
-    console.log(response.data)
+    return response.data
   } catch (error) {
     console.error(error)
+    throw new Error('Error al actualizar la categoría')
   }
 }
 
-const deleteCategory = async (id: string): Promise<void> => {
+const deleteCategory = async (id: string): Promise<{ msg: string, categoryDeleted: Category }> => {
   try {
     const response = await axios.delete(`http://localhost:3001/categories/${id}`)
-    console.log(response.data)
+    return response.data
   } catch (error) {
     console.error(error)
+    throw new Error('Error al eliminar la categoría')
   }
 }
 
