@@ -2,13 +2,13 @@ interface Brand {
   _id: string
   name: string
   image: string
-  state: boolean
+  status: boolean
 }
 
 interface Category {
   _id: string
   name: string
-  state: boolean
+  status: boolean
   description: string
   image: string
 }
@@ -26,6 +26,18 @@ interface Product {
   category: Category
 }
 
+interface ProductCreate {
+  name: string
+  petType: string[]
+  miniDescription: string
+  description: ProductDescription[]
+  image: string[]
+  options: ProductOption[]
+  brandId: string
+  lifeStage: string[]
+  categoryId: string
+}
+
 interface ProductDescription {
   title: string
   description: string
@@ -33,9 +45,9 @@ interface ProductDescription {
 
 interface ProductOption {
   option: string
-  price: number
-  stock: number
-  discount: number
+  price: number | string
+  stock: number | string
+  discount: number | string
 }
 
 interface User {
@@ -81,6 +93,9 @@ export type {
   Brand,
   Category,
   Product,
+  ProductDescription,
+  ProductCreate,
+  ProductOption,
   User,
   Order
 }

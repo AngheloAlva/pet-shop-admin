@@ -5,10 +5,11 @@ import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { createProduct, deleteProduct, getProducts, searchProducts, updateProduct } from '@/api/product'
-import { FaScrewdriverWrench, FaPenRuler, FaRegTrashCan, FaTableList, FaMagnifyingGlass } from 'react-icons/fa6'
+import { FaPenRuler, FaRegTrashCan, FaTableList, FaMagnifyingGlass } from 'react-icons/fa6'
 
 import type { Product } from '@/types/index'
 import MiniProduct from '@/components/Mini-product'
+import CreateProduct from '@/components/Create-Product'
 
 const page = (): JSX.Element => {
   const [products, setProducts] = React.useState<Product[]>([])
@@ -34,9 +35,7 @@ const page = (): JSX.Element => {
       <h1 className='text-3xl font-bold'>Products</h1>
 
       <div className='flex gap-4 mt-5 flex-col'>
-        <Button variant={'outline'} className='flex items-center gap-2'>
-          <FaScrewdriverWrench />Add Product
-        </Button>
+        <CreateProduct />
         <Button variant={'outline'} className='flex items-center gap-2'>
           <FaTableList />See Products
         </Button>
