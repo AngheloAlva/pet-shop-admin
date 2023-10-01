@@ -34,7 +34,7 @@ interface ProductCreate {
   image: string[]
   options: ProductOption[]
   brandId: string
-  lifeStage: string[]
+  lifeStage: string
   categoryId: string
 }
 

@@ -53,7 +53,7 @@ const CreateProduct = (): JSX.Element => {
     brandId: '',
     options: [],
     description: [],
-    lifeStage: [],
+    lifeStage: '',
     image: [],
     miniDescription: '',
     petType: []
@@ -79,6 +79,7 @@ const CreateProduct = (): JSX.Element => {
     const getCategoriesAndBrands = async (): Promise<void> => {
       const categories = await getCategories()
       const brands = await getBrands()
+      validateForm()
 
       setCategories(categories.categories)
       setBrands(brands.brands)
@@ -186,6 +187,7 @@ const CreateProduct = (): JSX.Element => {
 
     try {
       const res = await createProduct(formData)
+      console.log(res)
 
       toast({
         title: 'Product created',
@@ -290,7 +292,7 @@ const CreateProduct = (): JSX.Element => {
               Cancel
             </Button>
           </DialogPrimitive.Close>
-          <Button variant={'default'} onClick={handleSave}>
+          <Button variant={'default'} onClick={(e) => { handleSave(e) }}>
             Save
           </Button>
         </DialogFooter>
