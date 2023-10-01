@@ -13,6 +13,12 @@ interface Category {
   image: string
 }
 
+interface CategoryCreate {
+  name: string
+  description: string
+  image: string
+}
+
 interface Product {
   _id: string
   name: string
@@ -92,6 +98,7 @@ interface Order {
 export type {
   Brand,
   Category,
+  CategoryCreate,
   Product,
   ProductDescription,
   ProductCreate,

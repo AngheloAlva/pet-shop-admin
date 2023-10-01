@@ -1,7 +1,7 @@
-import type { Category } from '@/types'
+import type { Category, CategoryCreate } from '@/types'
 import axios from 'axios'
 
-const createCategory = async (category: Category): Promise<{ msg: string, newCategory: Category }> => {
+const createCategory = async (category: CategoryCreate): Promise<{ msg: string, newCategory: Category }> => {
   try {
     const response = await axios.post('http://localhost:3001/categories', category)
     console.log(response.data)
