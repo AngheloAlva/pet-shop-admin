@@ -98,6 +98,16 @@ const CreateProduct = (): JSX.Element => {
 
   const handleAddDescription = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
+
+    if (currentDescription.title === '' || currentDescription.description === '') {
+      toast({
+        title: 'Title or description empty',
+        description: 'Please fill both fields',
+        duration: 3000
+      })
+      return
+    }
+
     setFormData({ ...formData, description: [...formData.description, currentDescription] })
     setCurrentDescription({ title: '', description: '' })
   }
@@ -187,13 +197,38 @@ const CreateProduct = (): JSX.Element => {
 
     try {
       const res = await createProduct(formData)
-      console.log(res)
 
       toast({
         title: 'Product created',
         description: res.msg,
         duration: 3000
       })
+
+      setFormData({
+        name: '',
+        categoryId: '',
+        brandId: '',
+        options: [],
+        description: [],
+        lifeStage: '',
+        image: [],
+        miniDescription: '',
+        petType: []
+      })
+
+      setFormErrors(
+        {
+          name: 'Name is required',
+          categoryId: 'Category is required',
+          brandId: 'Brand is required',
+          miniDescription: 'Mini description is required',
+          description: 'Description is required',
+          petType: 'Pet type is required',
+          lifeStage: 'Life stage is required',
+          image: 'Image is required',
+          options: 'Options are required'
+        }
+      )
     } catch (error) {
       toast({
         title: 'Product not created',
@@ -219,16 +254,16 @@ const CreateProduct = (): JSX.Element => {
         </DialogHeader>
         <form className='flex flex-col'>
           <Label htmlFor='name' className='mb-1'>Product Name</Label>
-          <Input id='name' placeholder='Name' required onChange={(e) => { handleFieldChange('name', e.target.value) }} />
+          <Input id='name' value={formData.name} placeholder='Name' required onChange={(e) => { handleFieldChange('name', e.target.value) }} />
 
           <Label htmlFor='categoryId' className='mb-1 mt-3'>Category</Label>
-          <FormSelect list={categories} field='categoryId' placeholder={'Select category'} handleFielChange={handleFieldChange} />
+          <FormSelect list={categories} value={formData.categoryId} field='categoryId' placeholder={'Select category'} handleFielChange={handleFieldChange} />
 
           <Label htmlFor='brandId' className='mb-1 mt-3'>Brand</Label>
-          <FormSelect list={brands} field='brandId' placeholder={'Select brand'} handleFielChange={handleFieldChange} />
+          <FormSelect list={brands} field='brandId' value={formData.brandId} placeholder={'Select brand'} handleFielChange={handleFieldChange} />
 
           <Label htmlFor='miniDescription' className='mb-1 mt-3'>Mini Description</Label>
-          <Textarea id='miniDescription' required placeholder='Mini Description' className='max-h-[7rem]' onChange={(e) => { handleFieldChange('miniDescription', e.target.value) }} />
+          <Textarea id='miniDescription' value={formData.miniDescription} required placeholder='Mini Description' className='max-h-[7rem]' onChange={(e) => { handleFieldChange('miniDescription', e.target.value) }} />
 
           <Separator className='mt-5' />
           <Label htmlFor='titleDescription' className='mb-1 mt-3'>Title Description</Label>
@@ -240,19 +275,37 @@ const CreateProduct = (): JSX.Element => {
           <Button variant={'secondary'} className='mt-2' onClick={handleAddDescription}>
             Add Description
           </Button>
+          <UploadButton
+            endpoint='imageUploader'
+            className='mt-6'
+            onClientUploadComplete={(res) => {
+              if (res === undefined || res.length === 0) return
+
+              handleDescriptionChange('description', res[0].url)
+            }}
+            onUploadError={(error: Error) => {
+              toast({
+                title: 'Image not uploaded',
+                description: error.message,
+                duration: 3000,
+                variant: 'destructive'
+              })
+            }}
+          />
+          <p className='text-xs font-semibold mt-2'>* You can add images in the description, just upload the image and the link will be copied automatically, you just have to ad the title and Add Description</p>
           <Separator className='mt-3' />
 
           <Label htmlFor='petType' className='mb-1 mt-3'>Pet Type</Label>
           <div className='flex items-center'>
-            <Checkbox id='dog' value='dog' onCheckedChange={(checked) => { handleCheckboxChange('dog', checked) }} />
+            <Checkbox id='dog' value='dog' checked={formData.petType.includes('dog')} onCheckedChange={(checked) => { handleCheckboxChange('dog', checked) }} />
             <Label className='ml-1 mr-3' htmlFor='dog' >Dog</Label>
-            <Checkbox id='cat' value='cat' onCheckedChange={(checked) => { handleCheckboxChange('cat', checked) }} />
+            <Checkbox id='cat' value='cat' checked={formData.petType.includes('cat')} onCheckedChange={(checked) => { handleCheckboxChange('cat', checked) }} />
             <Label className='ml-1 mr-3' htmlFor='cat'>Cat</Label>
           </div>
           <Separator className='mt-3' />
 
           <Label htmlFor='lifeStage' className='mb-1 mt-3'>Life Stage</Label>
-          <FormSelect field='lifeStage' list={lifeStageList} placeholder='lifeStage' handleFielChange={handleFieldChange} />
+          <FormSelect field='lifeStage' list={lifeStageList} value={formData.lifeStage} placeholder='lifeStage' handleFielChange={handleFieldChange} />
 
           <Separator className='mt-4' />
           <Label htmlFor='image' className='mb-1 mt-3'>Image</Label>
@@ -261,12 +314,15 @@ const CreateProduct = (): JSX.Element => {
             onClientUploadComplete={(res) => {
               if (res === undefined || res.length === 0) return
 
-              for (let i = 0; i < res.length; i++) {
-                handleImageChange(res[i].url)
-              }
+              handleImageChange(res[0].url)
             }}
             onUploadError={(error: Error) => {
-              console.error(error)
+              toast({
+                title: 'Image not uploaded',
+                description: error.message,
+                duration: 3000,
+                variant: 'destructive'
+              })
             }}
           />
           <Separator className='mt-2' />
@@ -292,9 +348,11 @@ const CreateProduct = (): JSX.Element => {
               Cancel
             </Button>
           </DialogPrimitive.Close>
-          <Button variant={'default'} onClick={(e) => { handleSave(e) }}>
-            Save
-          </Button>
+          <DialogPrimitive.Close>
+            <Button variant={'default'} onClick={(e) => { handleSave(e) }}>
+              Save
+            </Button>
+          </DialogPrimitive.Close>
         </DialogFooter>
       </DialogContent>
     </Dialog>

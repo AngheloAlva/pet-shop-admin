@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 interface Props {
   field: string
   placeholder: string
+  value: string | string[]
   list: Array<{
     _id: string
     name: string
@@ -12,9 +13,9 @@ interface Props {
   handleFielChange: (field: string, value: string | string[]) => void
 }
 
-const FormSelect = ({ field, placeholder, list, handleFielChange }: Props): JSX.Element => {
+const FormSelect = ({ field, placeholder, value, list, handleFielChange }: Props): JSX.Element => {
   return (
-    <Select required onValueChange={(e) => { handleFielChange(field, e) }}>
+    <Select required value={value} onValueChange={(e) => { handleFielChange(field, e) }}>
       <SelectTrigger>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
