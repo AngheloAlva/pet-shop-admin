@@ -5,6 +5,11 @@ interface Brand {
   status: boolean
 }
 
+interface BrandCreate {
+  name: string
+  image: string
+}
+
 interface Category {
   _id: string
   name: string
@@ -97,6 +102,7 @@ interface Order {
 
 export type {
   Brand,
+  BrandCreate,
   Category,
   CategoryCreate,
   Product,

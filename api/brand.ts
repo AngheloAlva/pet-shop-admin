@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-import type { Brand } from '@/types'
+import type { Brand, BrandCreate } from '@/types'
 
-const createBrand = async (brand: Brand): Promise<{ msg: string, newBrand: Brand }> => {
+const createBrand = async (brand: BrandCreate): Promise<{ msg: string, newBrand: Brand }> => {
   try {
     const response = await axios.post('http://localhost:3001/brands', brand)
     return response.data
