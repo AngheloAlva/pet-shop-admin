@@ -238,6 +238,34 @@ const CreateProduct = (): JSX.Element => {
     }
   }
 
+  const handleCancel = (): void => {
+    setFormData({
+      name: '',
+      categoryId: '',
+      brandId: '',
+      options: [],
+      description: [],
+      lifeStage: '',
+      image: [],
+      miniDescription: '',
+      petType: []
+    })
+
+    setFormErrors(
+      {
+        name: 'Name is required',
+        categoryId: 'Category is required',
+        brandId: 'Brand is required',
+        miniDescription: 'Mini description is required',
+        description: 'Description is required',
+        petType: 'Pet type is required',
+        lifeStage: 'Life stage is required',
+        image: 'Image is required',
+        options: 'Options are required'
+      }
+    )
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -344,7 +372,7 @@ const CreateProduct = (): JSX.Element => {
         </form>
         <DialogFooter>
           <DialogPrimitive.Close>
-            <Button variant={'outline'}>
+            <Button variant={'outline'} onClick={handleCancel}>
               Cancel
             </Button>
           </DialogPrimitive.Close>

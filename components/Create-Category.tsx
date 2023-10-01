@@ -104,6 +104,20 @@ const CreateCategory = (): JSX.Element => {
     }
   }
 
+  const handleCancel = (): void => {
+    setFormData({
+      name: '',
+      description: '',
+      image: ''
+    })
+
+    setFormErrors({
+      name: 'Name is required',
+      description: 'Description is required',
+      image: 'Image is required'
+    })
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -157,7 +171,7 @@ const CreateCategory = (): JSX.Element => {
         </form>
         <DialogFooter>
           <DialogPrimitive.Close>
-            <Button variant={'outline'}>
+            <Button variant={'outline'} onClick={handleCancel}>
               Cancel
             </Button>
           </DialogPrimitive.Close>
