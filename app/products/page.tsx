@@ -4,12 +4,13 @@ import React from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { createProduct, deleteProduct, getProducts, searchProducts, updateProduct } from '@/api/product'
+import { deleteProduct, searchProducts, updateProduct } from '@/api/product'
 import { FaPenRuler, FaRegTrashCan, FaTableList, FaMagnifyingGlass } from 'react-icons/fa6'
 
 import type { Product } from '@/types/index'
 import MiniProduct from '@/components/Mini-product'
 import CreateProduct from '@/components/Create-Product'
+import Link from 'next/link'
 
 const page = (): JSX.Element => {
   const [products, setProducts] = React.useState<Product[]>([])
@@ -36,9 +37,11 @@ const page = (): JSX.Element => {
 
       <div className='flex gap-4 mt-5 flex-col'>
         <CreateProduct />
-        <Button variant={'outline'} className='flex items-center gap-2'>
-          <FaTableList />See Products
-        </Button>
+        <Link href='/products/table' className='w-full'>
+          <Button variant={'outline'} className='flex items-center gap-2 w-full'>
+            <FaTableList />See Products
+          </Button>
+        </Link>
         <div className='flex gap-1'>
           {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
           <Input onChange={handleSearchChange} placeholder='Search product' className='flex items-center gap-2' />
