@@ -24,7 +24,7 @@ const page = (): JSX.Element => {
   return (
     <div className='w-full bg-zinc-800 p-5 text-white flex flex-col gap-4'>
       <div className='flex items-center gap-3'>
-        <Link href={'/products'}>
+        <Link href={'/brands'}>
           <FaChevronLeft />
         </Link>
         <h1 className='text-3xl font-bold'>Brands</h1>
