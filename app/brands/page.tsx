@@ -13,7 +13,7 @@ const page = (): JSX.Element => {
         <CreateBrand />
         <Link href='/brands/table' className='w-full'>
           <Button variant={'outline'} className='flex items-center gap-2 w-full'>
-            <FaTableList />See Categories
+            <FaTableList />See Brands
           </Button>
         </Link>
       </div>
