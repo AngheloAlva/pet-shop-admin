@@ -24,6 +24,16 @@ const getBrands = async (limit: number = 10, from: number = 0): Promise<{ brands
   }
 }
 
+const updateBrand = async (id: string, brand: BrandCreate, status: boolean): Promise<{ msg: string, brandDB: Brand }> => {
+  try {
+    const response = await axios.put(`http://localhost:3001/brands/${id}`, { ...brand, status })
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw new Error('Error al actualizar la marca')
+  }
+}
+
 const deleteBrand = async (id: string): Promise<{ msg: string, brandDeleted: Brand }> => {
   try {
     const response = await axios.delete(`http://localhost:3001/brands/${id}`)
@@ -36,6 +46,7 @@ const deleteBrand = async (id: string): Promise<{ msg: string, brandDeleted: Bra
 
 export {
   createBrand,
+  updateBrand,
   getBrands,
   deleteBrand
 }
