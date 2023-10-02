@@ -11,7 +11,7 @@ const page = (): JSX.Element => {
 
       <div className='flex gap-4 mt-5 flex-col'>
         <CreateBrand />
-        <Link href='/categories/table' className='w-full'>
+        <Link href='/brands/table' className='w-full'>
           <Button variant={'outline'} className='flex items-center gap-2 w-full'>
             <FaTableList />See Categories
           </Button>
