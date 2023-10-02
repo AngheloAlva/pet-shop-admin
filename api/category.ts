@@ -4,7 +4,6 @@ import axios from 'axios'
 const createCategory = async (category: CategoryCreate): Promise<{ msg: string, newCategory: Category }> => {
   try {
     const response = await axios.post('http://localhost:3001/categories', category)
-    console.log(response.data)
     return response.data
   } catch (error) {
     console.error(error)
@@ -17,7 +16,6 @@ const getCategories = async (limit: number = 15, from: number = 0): Promise<{ ca
     const response = await axios.get(
       `http://localhost:3001/categories${limit > 0 ? `?limit=${limit}` : ''}${from > 0 ? `&from=${from}` : ''}`
     )
-    console.log(response.data)
     return response.data
   } catch (error) {
     console.error(error)
@@ -25,9 +23,9 @@ const getCategories = async (limit: number = 15, from: number = 0): Promise<{ ca
   }
 }
 
-const updateCategory = async (category: Category): Promise<{ msg: string, category: Category }> => {
+const updateCategory = async (id: string, category: CategoryCreate, status: boolean): Promise<{ msg: string, category: Category }> => {
   try {
-    const response = await axios.put(`http://localhost:3001/categories/${category._id}`, category)
+    const response = await axios.put(`http://localhost:3001/categories/${id}`, { ...category, status })
     return response.data
   } catch (error) {
     console.error(error)
