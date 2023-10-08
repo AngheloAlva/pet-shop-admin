@@ -16,12 +16,14 @@ interface Category {
   status: boolean
   description: string
   image: string
+  petType: string[]
 }
 
 interface CategoryCreate {
   name: string
   description: string
   image: string
+  petType: string[]
 }
 
 interface Product {

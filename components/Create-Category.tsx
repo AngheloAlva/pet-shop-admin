@@ -26,6 +26,7 @@ import { createCategory } from '@/api/category'
 import type { CategoryCreate } from '@/types'
 
 import '@uploadthing/react/styles.css'
+import { Checkbox } from './ui/checkbox'
 
 const CreateCategory = (): JSX.Element => {
   const { toast } = useToast()
@@ -34,7 +35,8 @@ const CreateCategory = (): JSX.Element => {
   const [formData, setFormData] = React.useState<CategoryCreate>({
     name: '',
     description: '',
-    image: ''
+    image: '',
+    petType: []
   })
 
   const handleFieldChange = (field: string, value: string | string[]): void => {
@@ -61,6 +63,14 @@ const CreateCategory = (): JSX.Element => {
     return Object.keys(errors).length === 0
   }
 
+  const handleCheckboxChange = (petType: string, checked: boolean): void => {
+    if (checked) {
+      setFormData({ ...formData, petType: [...formData.petType, petType] })
+    } else {
+      setFormData({ ...formData, petType: formData.petType.filter((pet) => pet !== petType) })
+    }
+  }
+
   const handleSave = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
 
@@ -85,7 +95,8 @@ const CreateCategory = (): JSX.Element => {
       setFormData({
         name: '',
         description: '',
-        image: ''
+        image: '',
+        petType: []
       })
 
       setFormErrors(
@@ -108,7 +119,8 @@ const CreateCategory = (): JSX.Element => {
     setFormData({
       name: '',
       description: '',
-      image: ''
+      image: '',
+      petType: []
     })
 
     setFormErrors({
@@ -138,6 +150,15 @@ const CreateCategory = (): JSX.Element => {
 
           <Label htmlFor='description' className='mt-3'>Description</Label>
           <Textarea id='description' className='max-h-[8rem]' name='description' placeholder='Description' value={formData.description} onChange={(e) => { handleFieldChange('description', e.target.value) }} />
+
+          <div className='flex items-center gap-1'>
+            <Checkbox id='petTypeDog' className='mt-3' name='petTypeDog' checked={formData.petType.includes('dog')} onCheckedChange={(checked) => { handleCheckboxChange('dog', checked) }} />
+            <Label htmlFor='petTypeDog' className='mt-3'>Dog</Label>
+          </div>
+          <div className='flex items-center gap-1'>
+            <Checkbox id='petTypeCat' className='mt-3' name='petTypeCat' checked={formData.petType.includes('cat')} onCheckedChange={(checked) => { handleCheckboxChange('cat', checked) }} />
+            <Label htmlFor='petTypeCat' className='mt-3'>Cat</Label>
+          </div>
 
           <Separator className='mt-5' />
           <Label className='mt-2'>Image</Label>
